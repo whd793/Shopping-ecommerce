@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import CategoryItem from './components/CategoryItem/CategoryItem';
 
-// import './App.css';
+import './App.css';
 
 const categories = [
   {
