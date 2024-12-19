@@ -7,6 +7,7 @@ export const ProductCartContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  cursor: pointer;
 
   button {
     width: 80%;
