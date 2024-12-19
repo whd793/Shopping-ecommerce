@@ -11,6 +11,8 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 
+import SearchBox from '../../components/search-box/search-box.component';
+
 import {
   NavigationContainer,
   NavLinks,
@@ -29,6 +31,8 @@ const Navigation = () => {
           <CrwnLogo className='logo' />
         </LogoContainer>
         <NavLinks>
+          <SearchBox />
+
           <NavLink to='/shop'>SHOP</NavLink>
 
           {currentUser ? (

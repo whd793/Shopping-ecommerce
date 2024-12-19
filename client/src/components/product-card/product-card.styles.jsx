@@ -8,13 +8,6 @@ export const ProductCartContainer = styled.div`
   align-items: center;
   position: relative;
 
-  img {
-    width: 100%;
-    height: 95%;
-    object-fit: cover;
-    margin-bottom: 5px;
-  }
-
   button {
     width: 80%;
     opacity: 0.7;
@@ -32,6 +25,27 @@ export const ProductCartContainer = styled.div`
       opacity: 0.85;
       display: flex;
     }
+  }
+`;
+
+export const ProductImage = styled.img`
+  width: 100%;
+  height: 95%;
+  object-fit: cover;
+  margin-bottom: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.loaded {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    height: 250px;
   }
 `;
 
