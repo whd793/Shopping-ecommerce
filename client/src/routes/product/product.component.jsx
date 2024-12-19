@@ -7,6 +7,10 @@ import { addItemToCart } from '../../store/cart/cart.reducer';
 import Button from '../../components/button/button.component';
 import ProductReview from '../../components/product-review/product-review.component';
 
+import { addToRecentlyViewed } from '../../store/recent/recent.reducer';
+import RecentlyViewed from '../../components/recently-viewed/recently-viewed.component';
+import SizeGuide from '../../components/size-guide/size-guide.component';
+
 import {
   ProductContainer,
   ProductImage,
@@ -14,6 +18,7 @@ import {
   ProductTitle,
   ProductPrice,
   ReviewSection,
+  Prod,
 } from './product.styles';
 
 const Product = () => {
@@ -23,6 +28,10 @@ const Product = () => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
+    if (product) {
+      dispatch(addToRecentlyViewed(product));
+    }
+
     // Find product in categoriesMap
     for (const category of Object.values(categoriesMap)) {
       const foundProduct = category.find((p) => p.id === Number(id));
@@ -31,7 +40,7 @@ const Product = () => {
         break;
       }
     }
-  }, [id, categoriesMap]);
+  }, [id, categoriesMap, product, dispatch]);
 
   if (!product) {
     return <div>Loading...</div>;
@@ -46,7 +55,11 @@ const Product = () => {
         <ProductTitle>{product.name}</ProductTitle>
         <ProductPrice>${product.price}</ProductPrice>
         <Button onClick={addProductToCart}>Add to Cart</Button>
+        <SizeGuide category={product.category} />
       </ProductInfo>
+      <Prod>
+        <RecentlyViewed />
+      </Prod>
       {/* <ReviewSection>
         <h2>Product Reviews</h2>
         <ProductReview productId={product.id} />

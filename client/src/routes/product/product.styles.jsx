@@ -15,6 +15,12 @@ export const ProductContainer = styled.div`
   }
 `;
 
+export const Prod = styled.div`
+  width: 100%;
+  display: grid;
+  overflow-x: scroll;
+  grid-column: 1 / -1;
+`;
 export const ProductImage = styled.img`
   width: 100%;
   height: auto;
