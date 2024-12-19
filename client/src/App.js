@@ -17,7 +17,7 @@ import { setCurrentUser } from './store/user/user.reducer';
 import Spinner from './components/spinner/spinner.component';
 import { Suspense, lazy } from 'react';
 
-import { initializeDatabase } from './utils/firebase/firebase.utils';
+// import { addReviewToProduct } from './utils/firebase/firebase.utils';
 
 const Shop = lazy(() => import('./routes/shop/shop.component'));
 const Navigation = lazy(() =>
@@ -30,6 +30,43 @@ const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
 
 const Search = lazy(() => import('./routes/search/search.component'));
 const Product = lazy(() => import('./routes/product/product.component'));
+
+// // Example reviews data
+// const reviewsData = [
+//   {
+//     productId: '1', // Product ID for "Brown Brim"
+//     userId: 'user_001',
+//     userName: 'Alice',
+//     rating: 5,
+//     comment: 'Amazing quality and fits perfectly!',
+//   },
+//   {
+//     productId: '2', // Product ID for another product
+//     userId: 'user_002',
+//     userName: 'Bob',
+//     rating: 4,
+//     comment: 'Good value for the price!',
+//   },
+//   {
+//     productId: '1', // Adding another review for "Brown Brim"
+//     userId: 'user_003',
+//     userName: 'Charlie',
+//     rating: 3,
+//     comment: 'Not bad, but could be better.',
+//   },
+// ];
+
+// // Add reviews to Firestore
+// const testAddReviews = async () => {
+//   try {
+//     for (const review of reviewsData) {
+//       await addReviewToProduct(review.productId, review);
+//       console.log(`Review added for product ${review.productId}`);
+//     }
+//   } catch (error) {
+//     console.error('Error adding test reviews:', error);
+//   }
+// };
 
 const App = () => {
   const dispatch = useDispatch();
@@ -52,6 +89,7 @@ const App = () => {
   // }, []);
   // App.js
   useEffect(() => {
+    // testAddReviews();
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);

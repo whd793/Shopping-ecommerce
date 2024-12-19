@@ -19,15 +19,26 @@ import {
   query,
   getDocs,
   orderBy,
+  addDoc, // Add this import
 } from 'firebase/firestore';
 
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+//   authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+//   projectId: 'crwn-clothing-db-98d4d',
+//   storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+//   messagingSenderId: '626766232035',
+//   appId: '1:626766232035:web:506621582dab103a4d08d6',
+// };
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
-  authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
-  projectId: 'crwn-clothing-db-98d4d',
-  storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
-  messagingSenderId: '626766232035',
-  appId: '1:626766232035:web:506621582dab103a4d08d6',
+  apiKey: 'AIzaSyDLzZsLdMP1kIu7woLo9TxsqHp861qp63Q',
+  authDomain: 'shopping-ecom-640d8.firebaseapp.com',
+  projectId: 'shopping-ecom-640d8',
+  storageBucket: 'shopping-ecom-640d8.firebasestorage.app',
+  messagingSenderId: '24881389789',
+  appId: '1:24881389789:web:5ea2191148686641003b34',
+  measurementId: 'G-GL0B6EZWWD',
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -189,52 +200,52 @@ export const onAuthStateChangedListener = (callback) =>
 // };
 // firebase.utils.js
 
+// Add a review to a specific product
 export const addReviewToProduct = async (productId, reviewData) => {
-  if (!productId) {
-    throw new Error('Product ID is required');
+  if (!productId || !reviewData) {
+    throw new Error('Product ID and review data are required.');
   }
 
   try {
-    // Create a new reviews collection at root level
-    const reviewsCollectionRef = collection(db, 'reviews');
-    const newReviewRef = doc(reviewsCollectionRef);
+    const reviewsRef = collection(db, 'reviews');
 
-    const validatedReviewData = {
+    // Add a review with an auto-generated document ID
+    await addDoc(reviewsRef, {
+      productId: String(productId), // Ensure productId is stored as a string for consistency
       userId: reviewData.userId,
       userName: reviewData.userName,
-      rating: Number(reviewData.rating),
+      rating: Number(reviewData.rating), // Ensure rating is stored as a number
       comment: reviewData.comment,
-      productId: Number(productId),
       createdAt: new Date(),
-      reviewId: newReviewRef.id,
-    };
+    });
 
-    console.log('Saving review data:', validatedReviewData);
-    await setDoc(newReviewRef, validatedReviewData);
+    console.log('Review added successfully');
   } catch (error) {
     console.error('Error adding review:', error);
     throw error;
   }
 };
 
+// Get all reviews for a specific product
 export const getProductReviews = async (productId) => {
   if (!productId) {
-    return [];
+    throw new Error('Product ID is required.');
   }
 
   try {
-    const reviewsCollectionRef = collection(db, 'reviews');
-    const q = query(reviewsCollectionRef, orderBy('createdAt', 'desc'));
+    const reviewsRef = collection(db, 'reviews');
+    const q = query(reviewsRef, orderBy('createdAt', 'desc'));
 
+    // Fetch reviews from Firestore
     const querySnapshot = await getDocs(q);
-    const allReviews = querySnapshot.docs
+
+    // Filter reviews to return only those matching the productId
+    return querySnapshot.docs
       .map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }))
-      .filter((review) => review.productId === Number(productId));
-
-    return allReviews;
+      .filter((review) => review.productId === String(productId));
   } catch (error) {
     console.error('Error getting reviews:', error);
     throw error;
