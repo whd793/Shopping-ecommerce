@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
@@ -18,13 +19,23 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  // const signInWithGoogle = async () => {
+  //   await signInWithGooglePopup();
+  // };
+
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    try {
+      await signInWithGooglePopup();
+      navigate('/'); // Redirect to homepage
+    } catch (error) {
+      console.error('Google sign-in failed', error);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -33,6 +44,7 @@ const SignInForm = () => {
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
       resetFormFields();
+      navigate('/'); // Redirect to homepage
     } catch (error) {
       console.log('user sign in failed', error);
     }
