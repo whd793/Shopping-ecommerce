@@ -13,6 +13,7 @@ export const SearchInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  min-width: 120px;
   transition: all 0.2s ease-in-out;
 
   &:focus {

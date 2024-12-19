@@ -22,15 +22,34 @@ import {
   addDoc, // Add this import
 } from 'firebase/firestore';
 
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+//   authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+//   projectId: 'crwn-clothing-db-98d4d',
+//   storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+//   messagingSenderId: '626766232035',
+//   appId: '1:626766232035:web:506621582dab103a4d08d6',
+// };
+
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: 'AIzaSyDLzZsLdMP1kIu7woLo9TxsqHp861qp63Q',
+  authDomain: 'shopping-ecom-640d8.firebaseapp.com',
+  projectId: 'shopping-ecom-640d8',
+  storageBucket: 'shopping-ecom-640d8.firebasestorage.app',
+  messagingSenderId: '24881389789',
+  appId: '1:24881389789:web:5ea2191148686641003b34',
+  measurementId: 'G-GL0B6EZWWD',
 };
+
+// const firebaseConfig = {
+//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+//   appId: process.env.REACT_APP_FIREBASE_APP_ID,
+//   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+// };
 
 const firebaseApp = initializeApp(firebaseConfig);
 

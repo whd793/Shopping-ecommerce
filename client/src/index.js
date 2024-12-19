@@ -18,7 +18,11 @@ root.render(
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <BrowserRouter>
-        <App />
+        <div className='homepage'>
+          <div className='blob'></div>
+          <div className='blob2'></div>
+          <App />
+        </div>
       </BrowserRouter>
       {/* </PersistGate> */}
     </Provider>
