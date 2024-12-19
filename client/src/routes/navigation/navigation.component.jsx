@@ -12,6 +12,7 @@ import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 
 import SearchBox from '../../components/search-box/search-box.component';
+import WishlistIcon from '../../components/wishlist-icon/wishlist-icon.component';
 
 import {
   NavigationContainer,
@@ -34,6 +35,7 @@ const Navigation = () => {
           <SearchBox />
 
           <NavLink to='/shop'>SHOP</NavLink>
+          <WishlistIcon />
 
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>

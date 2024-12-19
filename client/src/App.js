@@ -30,6 +30,7 @@ const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
 
 const Search = lazy(() => import('./routes/search/search.component'));
 const Product = lazy(() => import('./routes/product/product.component'));
+const Wishlist = lazy(() => import('./routes/wishlist/wishlist.component'));
 
 // // Example reviews data
 // const reviewsData = [
@@ -117,6 +118,7 @@ const App = () => {
           <Route path='checkout' element={<Checkout />} />
           <Route path='search' element={<Search />} />
           <Route path='product/:id' element={<Product />} />
+          <Route path='wishlist' element={<Wishlist />} />
         </Route>
       </Routes>
     </Suspense>

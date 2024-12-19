@@ -1,6 +1,12 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addItemToCart } from '../../store/cart/cart.reducer';
+import { selectWishlistItems } from '../../store/wishlist/wishlist.selector';
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from '../../store/wishlist/wishlist.reducer';
+import { Heart, ShoppingCart, Eye } from 'lucide-react';
 
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
@@ -14,6 +20,10 @@ import {
   Footer,
   Name,
   Price,
+  WishlistButton,
+  ButtonsContainer,
+  ActionButton,
+  ViewButton,
 } from './product-card.styles';
 
 import ProductReview from '../product-review/product-review.component';
@@ -24,6 +34,18 @@ const ProductCard = ({ product }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const wishlistItems = useSelector(selectWishlistItems);
+  const isInWishlist = wishlistItems.find((item) => item.id === product.id);
+
+  const toggleWishlist = (e) => {
+    e.stopPropagation(); // Prevent navigation when clicking wishlist button
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product));
+    } else {
+      dispatch(addToWishlist(product));
+    }
+  };
 
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -36,9 +58,32 @@ const ProductCard = ({ product }) => {
     dispatch(addItemToCart(product));
   };
 
+  const handleView = () => {
+    navigate(`/product/${id}`);
+  };
+
   return (
     // <ProductCartContainer>
     <ProductCartContainer onClick={() => navigate(`/product/${id}`)}>
+      {/* <WishlistButton onClick={toggleWishlist} isInWishlist={isInWishlist}>
+        <Heart
+          fill={isInWishlist ? 'red' : 'none'}
+          stroke={isInWishlist ? 'red' : 'black'}
+        />
+      </WishlistButton> */}
+      <ButtonsContainer>
+        <ActionButton onClick={toggleWishlist} title='Add to Wishlist'>
+          <Heart
+            size={20}
+            fill={isInWishlist ? 'red' : 'none'}
+            stroke={isInWishlist ? 'red' : 'black'}
+          />
+        </ActionButton>
+        <ActionButton onClick={addProductToCart} title='Add to Cart'>
+          <ShoppingCart size={20} />
+        </ActionButton>
+      </ButtonsContainer>
+
       {!imageLoaded && <Spinner />}
       <ProductImage
         src={imageUrl}
@@ -52,12 +97,16 @@ const ProductCard = ({ product }) => {
         <Name>{name}</Name>
         <Price>{price}</Price>
       </Footer>
-      <Button
+      {/* <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
       >
         Add to cart
-      </Button>
+      </Button> */}
+      <ViewButton onClick={handleView}>
+        <Eye size={20} />
+        View Details
+      </ViewButton>
       {/* <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={() => setShowReviews(!showReviews)}
