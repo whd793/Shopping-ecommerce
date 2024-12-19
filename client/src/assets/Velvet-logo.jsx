@@ -8,10 +8,10 @@ export const VelvetLogo = () => (
     xmlns='http://www.w3.org/2000/svg'
   >
     <text
-      x='50%'
-      y='50%'
+      x='70%'
+      y='70%'
       fontFamily='serif'
-      fontSize='28'
+      fontSize='40'
       fill='black'
       textAnchor='middle'
       dominantBaseline='middle'

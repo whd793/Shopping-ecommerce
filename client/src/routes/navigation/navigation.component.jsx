@@ -29,7 +29,9 @@ const Navigation = () => {
     <Fragment>
       <NavigationContainer>
         <LogoContainer to='/'>
-          <VelvetLogo className='logo' />
+          <CrwnLogo className='logo' />
+
+          <VelvetLogo className='logovelvet' />
         </LogoContainer>
         <NavLinks>
           <SearchBox />
