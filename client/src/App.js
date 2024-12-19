@@ -27,6 +27,7 @@ const Authentication = lazy(() =>
 const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
 
 const Search = lazy(() => import('./routes/search/search.component'));
+const Product = lazy(() => import('./routes/product/product.component'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const App = () => {
           <Route path='auth' element={<Authentication />} />
           <Route path='checkout' element={<Checkout />} />
           <Route path='search' element={<Search />} />
+          <Route path='product/:id' element={<Product />} />
         </Route>
       </Routes>
     </Suspense>

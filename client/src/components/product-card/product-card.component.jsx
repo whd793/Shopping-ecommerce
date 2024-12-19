@@ -5,6 +5,7 @@ import { addItemToCart } from '../../store/cart/cart.reducer';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Spinner from '../spinner/spinner.component';
 import {
@@ -15,15 +16,29 @@ import {
   Price,
 } from './product-card.styles';
 
+import ProductReview from '../product-review/product-review.component';
+
 const ProductCard = ({ product }) => {
-  const { name, price, imageUrl } = product;
+  // const { name, price, imageUrl } = product;
+  const { id, name, price, imageUrl } = product;
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const addProductToCart = () => dispatch(addItemToCart(product));
+  // const [showReviews, setShowReviews] = useState(false);
+
+  // const addProductToCart = () => dispatch(addItemToCart(product));
+
+  const addProductToCart = (e) => {
+    e.stopPropagation(); // Prevent navigation when clicking the add to cart button
+    dispatch(addItemToCart(product));
+  };
 
   return (
-    <ProductCartContainer>
+    // <ProductCartContainer>
+    <ProductCartContainer onClick={() => navigate(`/product/${id}`)}>
       {!imageLoaded && <Spinner />}
       <ProductImage
         src={imageUrl}
@@ -41,8 +56,16 @@ const ProductCard = ({ product }) => {
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
       >
-        Add to card
+        Add to cart
       </Button>
+      {/* <Button
+        buttonType={BUTTON_TYPE_CLASSES.inverted}
+        onClick={() => setShowReviews(!showReviews)}
+      >
+        Show Reviews
+      </Button> */}
+
+      {/* {showReviews && <ProductReview productId={product.id} />} */}
     </ProductCartContainer>
   );
 };

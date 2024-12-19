@@ -18,6 +18,7 @@ import {
   writeBatch,
   query,
   getDocs,
+  orderBy,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -115,3 +116,39 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const addReviewToProduct = async (productId, reviewData) => {
+  const reviewRef = doc(
+    db,
+    'products',
+    productId,
+    'reviews',
+    reviewData.userId
+  );
+
+  try {
+    await setDoc(reviewRef, {
+      ...reviewData,
+      createdAt: new Date(),
+    });
+  } catch (error) {
+    console.error('Error adding review:', error);
+    throw error;
+  }
+};
+
+export const getProductReviews = async (productId) => {
+  const reviewsRef = collection(db, 'products', productId, 'reviews');
+  const q = query(reviewsRef, orderBy('createdAt', 'desc'));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  } catch (error) {
+    console.error('Error getting reviews:', error);
+    throw error;
+  }
+};
