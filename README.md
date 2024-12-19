@@ -3,8 +3,8 @@
 
 <div align="center">
   <h3>
-    <a href="#english">English</a>
-    <a href="#korean">한국어</a> |
+    <a href="#english">English</a> |
+    <a href="#korean">한국어</a> 
   </h3>
 </div>
 
