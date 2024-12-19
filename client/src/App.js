@@ -17,6 +17,9 @@ import { setCurrentUser } from './store/user/user.reducer';
 import Spinner from './components/spinner/spinner.component';
 import { Suspense, lazy } from 'react';
 
+import { getCategoriesAndDocuments } from './utils/firebase/firebase.utils';
+import { setCategories } from './store/categories/category.reducer';
+
 // import { addReviewToProduct } from './utils/firebase/firebase.utils';
 
 const Shop = lazy(() => import('./routes/shop/shop.component'));
@@ -89,7 +92,24 @@ const App = () => {
   //   return unsubscribe;
   // }, []);
   // App.js
+
+  // useEffect(() => {
+  //   const getCategoriesMap = async () => {
+  //     const categoriesArray = await getCategoriesAndDocuments('categories');
+  //     dispatch(setCategories(categoriesArray));
+  //   };
+
+  //   getCategoriesMap();
+  // }, []);
+
   useEffect(() => {
+    const getCategoriesMap = async () => {
+      const categoriesArray = await getCategoriesAndDocuments('categories');
+      dispatch(setCategories(categoriesArray));
+    };
+
+    getCategoriesMap();
+
     // testAddReviews();
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
