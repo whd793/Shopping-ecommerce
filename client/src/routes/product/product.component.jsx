@@ -47,9 +47,14 @@ const Product = () => {
         <ProductPrice>${product.price}</ProductPrice>
         <Button onClick={addProductToCart}>Add to Cart</Button>
       </ProductInfo>
-      <ReviewSection>
+      {/* <ReviewSection>
         <h2>Product Reviews</h2>
         <ProductReview productId={product.id} />
+      </ReviewSection> */}
+      <ReviewSection>
+        <h2>Product Reviews</h2>
+        <ProductReview productId={String(product.id)} />{' '}
+        {/* Ensure ID is string */}
       </ReviewSection>
     </ProductContainer>
   );

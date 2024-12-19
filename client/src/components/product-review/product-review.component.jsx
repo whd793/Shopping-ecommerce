@@ -22,17 +22,32 @@ const ProductReview = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
   const currentUser = useSelector(selectCurrentUser);
 
-  useEffect(() => {
-    const loadReviews = async () => {
-      try {
-        const productReviews = await getProductReviews(productId);
-        setReviews(productReviews);
-      } catch (error) {
-        console.error('Error loading reviews:', error);
-      }
-    };
+  //   useEffect(() => {
+  //     const loadReviews = async () => {
+  //       try {
+  //         const productReviews = await getProductReviews(productId);
+  //         setReviews(productReviews);
+  //       } catch (error) {
+  //         console.error('Error loading reviews:', error);
+  //       }
+  //     };
 
-    loadReviews();
+  //     loadReviews();
+  //   }, [productId]);
+
+  useEffect(() => {
+    if (productId) {
+      const loadReviews = async () => {
+        try {
+          const productReviews = await getProductReviews(productId);
+          setReviews(productReviews);
+        } catch (error) {
+          console.error('Error loading reviews:', error);
+        }
+      };
+
+      loadReviews();
+    }
   }, [productId]);
 
   const handleSubmitReview = async (e) => {
@@ -44,13 +59,17 @@ const ProductReview = ({ productId }) => {
     }
 
     try {
-      await addReviewToProduct(productId, {
-        userId: currentUser.id,
+      const reviewData = {
+        userId: currentUser.uid, // Make sure this exists
         userName: currentUser.displayName || 'Anonymous',
         rating,
         comment,
-        date: new Date(),
-      });
+        // Don't set createdAt here, it's set in the addReviewToProduct function
+      };
+
+      console.log('Submitting review with data:', reviewData); // Debug log
+
+      await addReviewToProduct(productId, reviewData);
 
       // Reload reviews after submitting
       const updatedReviews = await getProductReviews(productId);
@@ -95,9 +114,13 @@ const ProductReview = ({ productId }) => {
             <ReviewItem key={review.id}>
               <div>Rating: {'⭐'.repeat(review.rating)}</div>
               <div>{review.comment}</div>
-              <small>
+              {/* <small>
                 By {review.userName} on{' '}
                 {new Date(review.createdAt.seconds * 1000).toLocaleDateString()}
+              </small> */}
+              <small>
+                By {review.userName} on{' '}
+                {review.createdAt?.toDate().toLocaleDateString()}
               </small>
             </ReviewItem>
           ))

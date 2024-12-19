@@ -117,20 +117,100 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
 
+// export const addReviewToProduct = async (productId, reviewData) => {
+//   const reviewRef = doc(
+//     db,
+//     'products',
+//     productId,
+//     'reviews',
+//     reviewData.userId
+//   );
+
+//   try {
+//     await setDoc(reviewRef, {
+//       ...reviewData,
+//       createdAt: new Date(),
+//     });
+//   } catch (error) {
+//     console.error('Error adding review:', error);
+//     throw error;
+//   }
+// };
+
+// export const getProductReviews = async (productId) => {
+//   const reviewsRef = collection(db, 'products', productId, 'reviews');
+//   const q = query(reviewsRef, orderBy('createdAt', 'desc'));
+
+//   try {
+//     const querySnapshot = await getDocs(q);
+//     return querySnapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+//   } catch (error) {
+//     console.error('Error getting reviews:', error);
+//     throw error;
+//   }
+// };
+
+// export const addReviewToProduct = async (productId, reviewData) => {
+//   // Convert productId to string to ensure consistency
+//   const productDocRef = doc(db, 'products', String(productId));
+//   const reviewsCollectionRef = collection(productDocRef, 'reviews');
+//   const reviewRef = doc(reviewsCollectionRef, reviewData.userId);
+
+//   try {
+//     await setDoc(reviewRef, {
+//       ...reviewData,
+//       createdAt: new Date(),
+//     });
+//   } catch (error) {
+//     console.error('Error adding review:', error);
+//     throw error;
+//   }
+// };
+
+// export const getProductReviews = async (productId) => {
+//   // Convert productId to string to ensure consistency
+//   const productDocRef = doc(db, 'products', String(productId));
+//   const reviewsCollectionRef = collection(productDocRef, 'reviews');
+//   const q = query(reviewsCollectionRef, orderBy('createdAt', 'desc'));
+
+//   try {
+//     const querySnapshot = await getDocs(q);
+//     return querySnapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+//   } catch (error) {
+//     console.error('Error getting reviews:', error);
+//     throw error;
+//   }
+// };
+// firebase.utils.js
+
 export const addReviewToProduct = async (productId, reviewData) => {
-  const reviewRef = doc(
-    db,
-    'products',
-    productId,
-    'reviews',
-    reviewData.userId
-  );
+  if (!productId) {
+    throw new Error('Product ID is required');
+  }
 
   try {
-    await setDoc(reviewRef, {
-      ...reviewData,
+    // Create a new reviews collection at root level
+    const reviewsCollectionRef = collection(db, 'reviews');
+    const newReviewRef = doc(reviewsCollectionRef);
+
+    const validatedReviewData = {
+      userId: reviewData.userId,
+      userName: reviewData.userName,
+      rating: Number(reviewData.rating),
+      comment: reviewData.comment,
+      productId: Number(productId),
       createdAt: new Date(),
-    });
+      reviewId: newReviewRef.id,
+    };
+
+    console.log('Saving review data:', validatedReviewData);
+    await setDoc(newReviewRef, validatedReviewData);
   } catch (error) {
     console.error('Error adding review:', error);
     throw error;
@@ -138,15 +218,23 @@ export const addReviewToProduct = async (productId, reviewData) => {
 };
 
 export const getProductReviews = async (productId) => {
-  const reviewsRef = collection(db, 'products', productId, 'reviews');
-  const q = query(reviewsRef, orderBy('createdAt', 'desc'));
+  if (!productId) {
+    return [];
+  }
 
   try {
+    const reviewsCollectionRef = collection(db, 'reviews');
+    const q = query(reviewsCollectionRef, orderBy('createdAt', 'desc'));
+
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const allReviews = querySnapshot.docs
+      .map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      .filter((review) => review.productId === Number(productId));
+
+    return allReviews;
   } catch (error) {
     console.error('Error getting reviews:', error);
     throw error;

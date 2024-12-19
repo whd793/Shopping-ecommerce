@@ -17,6 +17,8 @@ import { setCurrentUser } from './store/user/user.reducer';
 import Spinner from './components/spinner/spinner.component';
 import { Suspense, lazy } from 'react';
 
+import { initializeDatabase } from './utils/firebase/firebase.utils';
+
 const Shop = lazy(() => import('./routes/shop/shop.component'));
 const Navigation = lazy(() =>
   import('./routes/navigation/navigation.component')
@@ -32,20 +34,40 @@ const Product = lazy(() => import('./routes/product/product.component'));
 const App = () => {
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   // initializeDatabase();
+
+  //   const unsubscribe = onAuthStateChangedListener((user) => {
+  //     if (user) {
+  //       createUserDocumentFromAuth(user);
+  //     }
+  //     const pickedUser =
+  //       user && (({ accessToken, email }) => ({ accessToken, email }))(user);
+
+  //     console.log(setCurrentUser(pickedUser));
+  //     dispatch(setCurrentUser(pickedUser));
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
+  // App.js
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);
+        const userData = {
+          uid: user.uid,
+          displayName: user.displayName || 'Anonymous',
+          email: user.email,
+        };
+        dispatch(setCurrentUser(userData));
+      } else {
+        dispatch(setCurrentUser(null));
       }
-      const pickedUser =
-        user && (({ accessToken, email }) => ({ accessToken, email }))(user);
-
-      console.log(setCurrentUser(pickedUser));
-      dispatch(setCurrentUser(pickedUser));
     });
 
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
 
   return (
     <Suspense fallback={<Spinner />}>
