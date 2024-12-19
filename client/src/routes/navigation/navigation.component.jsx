@@ -20,7 +20,7 @@ import {
   NavLink,
   LogoContainer,
 } from './navigation.styles';
-
+import { VelvetLogo } from '../../assets/Velvet-logo';
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
@@ -29,7 +29,7 @@ const Navigation = () => {
     <Fragment>
       <NavigationContainer>
         <LogoContainer to='/'>
-          <CrwnLogo className='logo' />
+          <VelvetLogo className='logo' />
         </LogoContainer>
         <NavLinks>
           <SearchBox />

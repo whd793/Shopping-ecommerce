@@ -9,10 +9,18 @@ export const NavigationContainer = styled.div`
   margin-bottom: 25px;
 `;
 
+// export const LogoContainer = styled(Link)`
+//   height: 100%;
+//   width: 70px;
+//   padding: 25px;
+// `;
+
 export const LogoContainer = styled(Link)`
   height: 100%;
-  width: 70px;
-  padding: 25px;
+  width: 120px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
 `;
 
 export const NavLinks = styled.div`
