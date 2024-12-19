@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useToast } from '../../contexts/toast.context';
 
 import { addItemToCart } from '../../store/cart/cart.reducer';
 import { selectWishlistItems } from '../../store/wishlist/wishlist.selector';
@@ -29,6 +30,8 @@ import {
 import ProductReview from '../product-review/product-review.component';
 
 const ProductCard = ({ product }) => {
+  const { showToast } = useToast();
+
   // const { name, price, imageUrl } = product;
   const { id, name, price, imageUrl } = product;
 
@@ -42,8 +45,10 @@ const ProductCard = ({ product }) => {
     e.stopPropagation(); // Prevent navigation when clicking wishlist button
     if (isInWishlist) {
       dispatch(removeFromWishlist(product));
+      showToast('Removed from wishlist', 'wishlist');
     } else {
       dispatch(addToWishlist(product));
+      showToast('Added to wishlist', 'wishlist');
     }
   };
 
@@ -56,6 +61,7 @@ const ProductCard = ({ product }) => {
   const addProductToCart = (e) => {
     e.stopPropagation(); // Prevent navigation when clicking the add to cart button
     dispatch(addItemToCart(product));
+    showToast('Added to cart', 'cart');
   };
 
   const handleView = () => {

@@ -11,19 +11,23 @@ import { BrowserRouter } from 'react-router-dom';
 // import { CartProvider } from './contexts/cart.context';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store/store';
+import { ToastProvider } from './contexts/toast.context';
+import Toast from './components/toast/toast.component';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <PersistGate loading={null} persistor={persistor}> */}
-      <BrowserRouter>
-        <div className='homepage'>
-          <div className='blob'></div>
-          <div className='blob2'></div>
-          <App />
-        </div>
-      </BrowserRouter>
+      <ToastProvider>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <BrowserRouter>
+          <div className='homepage'>
+            <div className='blob'></div>
+            <div className='blob2'></div>
+            <App />
+          </div>
+        </BrowserRouter>
+      </ToastProvider>
       {/* </PersistGate> */}
     </Provider>
   </React.StrictMode>
