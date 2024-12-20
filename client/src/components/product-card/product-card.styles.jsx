@@ -93,7 +93,7 @@ export const ProductCartContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: ${(props) => (props.$isCompact ? '280px' : '400px')};
   align-items: center;
   position: relative;
   background: white;
@@ -142,7 +142,8 @@ export const ActionButton = styled.button`
 
 export const ProductImage = styled.img`
   width: 100%;
-  height: 280px;
+  height: ${(props) => (props.$isCompact ? '160px' : '280px')};
+
   object-fit: cover;
   transition: transform 0.3s ease;
 `;

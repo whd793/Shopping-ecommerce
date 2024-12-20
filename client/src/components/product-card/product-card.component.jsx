@@ -29,7 +29,7 @@ import {
 
 import ProductReview from '../product-review/product-review.component';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, isCompact = false }) => {
   const { showToast } = useToast();
 
   // const { name, price, imageUrl } = product;
@@ -70,7 +70,10 @@ const ProductCard = ({ product }) => {
 
   return (
     // <ProductCartContainer>
-    <ProductCartContainer onClick={() => navigate(`/product/${id}`)}>
+    <ProductCartContainer
+      $isCompact={isCompact}
+      onClick={() => navigate(`/product/${id}`)}
+    >
       {/* <WishlistButton onClick={toggleWishlist} isInWishlist={isInWishlist}>
         <Heart
           fill={isInWishlist ? 'red' : 'none'}
@@ -92,6 +95,7 @@ const ProductCard = ({ product }) => {
 
       {!imageLoaded && <Spinner />}
       <ProductImage
+        $isCompact={isCompact}
         src={imageUrl}
         alt={`${name}`}
         loading='lazy'

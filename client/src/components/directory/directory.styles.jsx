@@ -13,9 +13,10 @@ import styled from 'styled-components';
 export const DirectoryContainer = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   padding: 20px 0;
+  margin: 0 auto;
 `;
 
 export const SectionTitle = styled.h2`

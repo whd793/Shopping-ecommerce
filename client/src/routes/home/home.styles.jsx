@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const HomeContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 0px;
 `;
 
 export const HeroBanner = styled.div`
