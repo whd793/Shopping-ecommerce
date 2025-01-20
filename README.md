@@ -28,6 +28,17 @@ A modern, full-featured e-commerce platform built with React and Firebase, showc
   - Shopping cart functionality
   - Seamless checkout process
   - Real-time cart updates
+  - Wishlist functionality
+  - Size guide for clothing
+  - Product reviews and ratings
+  - Responsive product grid layout
+    
+- **Product Management**
+  - Dynamic category filtering
+  - Featured products showcase
+  - Detailed product pages
+  - Product image optimization
+  - Recently viewed products tracking
 
 - **State Management**
   - Redux Toolkit implementation
@@ -41,6 +52,30 @@ A modern, full-featured e-commerce platform built with React and Firebase, showc
   - Custom button components
   - Dynamic navigation
   - Cart dropdown preview
+
+
+## Key Features Breakdown
+
+#### Home Page
+- Hero banner with featured collections
+- Category showcase
+- Featured products section
+- Newsletter subscription
+- Benefits highlights section
+
+#### Product Features
+- Detailed product views
+- Size guide integration
+- Customer reviews and ratings
+- Add to wishlist functionality
+- Recently viewed products tracking
+
+#### Shopping Cart
+- Real-time cart updates
+- Quantity adjustment
+- Persistent cart state
+- Cart summary
+- Quick checkout process
 
 ## 🛠️ Technical Stack
 
@@ -159,9 +194,12 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ---
 
+
 <h2 id="korean">한국어</h2>
 
 리액트와 파이어베이스로 구축된 현대적인 전자상거래 플랫폼입니다.
+
+
 
 ## 🌟 주요 기능
 
@@ -178,6 +216,35 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
   - 원활한 결제 프로세스
   - 실시간 장바구니 업데이트
 
+- **상품 관리**
+  - 동적 카테고리 필터링
+  - 추천 상품 섹션
+  - 상세 상품 페이지
+  - 상품 이미지 최적화
+  - 최근 본 상품 추적
+
+- **쇼핑 경험**
+  - 실시간 장바구니
+  - 위시리스트 기능
+  - 의류 사이즈 가이드
+  - 상품 리뷰 및 평점
+  - 반응형 상품 그리드 레이아웃
+
+
+- **홈페이지**
+  - 추천 컬렉션 히어로 배너
+  - 카테고리 쇼케이스
+  - 추천 상품 섹션
+  - 뉴스레터 구독
+  - 혜택 하이라이트 섹션
+  
+- **장바구니**
+  - 실시간 장바구니 업데이트
+  - 수량 조절
+  - 장바구니 상태 유지
+  - 장바구니 요약
+  - 빠른 체크아웃 프로세스
+  
 - **상태 관리**
   - Redux Toolkit 구현
   - Redux 셀렉터를 통한 성능 최적화
